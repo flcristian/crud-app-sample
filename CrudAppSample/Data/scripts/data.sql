@@ -1,0 +1,10 @@
+insert into products (id, price, name, category, date_of_fabrication) values (1, 8.9, 'Job', 'Medicine', '2022-12-01 22:14:13');
+insert into products (id, price, name, category, date_of_fabrication) values (2, 82.72, 'Zamit', 'Medicine', '2023-06-16 05:06:22');
+insert into products (id, price, name, category, date_of_fabrication) values (3, 46.39, 'Tresom', 'Medicine', '2022-11-10 00:24:48');
+insert into products (id, price, name, category, date_of_fabrication) values (4, 31.21, 'Fixflex', 'Medicine', '2023-06-06 23:22:05');
+insert into products (id, price, name, category, date_of_fabrication) values (5, 62.07, 'Span', 'Medicine', '2022-12-27 04:23:56');
+insert into products (id, price, name, category, date_of_fabrication) values (6, 81.15, 'Konklab', 'Medicine', '2023-08-09 09:02:42');
+insert into products (id, price, name, category, date_of_fabrication) values (7, 87.34, 'Keylex', 'Medicine', '2023-07-09 18:05:13');
+insert into products (id, price, name, category, date_of_fabrication) values (8, 2.1, 'Bigtax', 'Medicine', '2023-08-26 18:55:16');
+insert into products (id, price, name, category, date_of_fabrication) values (9, 82.73, 'Bitchip', 'Medicine', '2023-03-12 18:33:14');
+insert into products (id, price, name, category, date_of_fabrication) values (10, 90.06, 'Alphazap', 'Medicine', '2022-11-13 07:30:56');
