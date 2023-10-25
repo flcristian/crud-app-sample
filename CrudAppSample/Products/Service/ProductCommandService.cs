@@ -26,4 +26,26 @@ public class ProductCommandService : IProductCommandService
         product = await _repository.CreateAsync(productRequest);
         return product;
     }
+
+    public async Task<Product> UpdateProduct(int id, UpdateProductRequest productRequest)
+    {
+        Product product = await _repository.GetByIdAsync(id);
+        if (product == null)
+        {
+            throw new BadRequest(Constants.PRODUCT_DOES_NOT_EXIST);
+        }
+        product = await _repository.UpdateAsync(id, productRequest);
+        return product;
+    }
+
+    public async Task DeleteProduct(int id)
+    {
+        Product product = await _repository.GetByIdAsync(id);
+        if (product == null)
+        {
+            throw new BadRequest(Constants.PRODUCT_DOES_NOT_EXIST);
+        }
+
+        await _repository.DeleteAsync(id);
+    }
 }

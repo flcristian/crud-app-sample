@@ -6,4 +6,8 @@ namespace CrudAppSample.Products.Service.Interfaces;
 public interface IProductCommandService
 {
     Task<Product> CreateProduct(CreateProductRequest productRequest);
+
+    Task<Product> UpdateProduct(int id, UpdateProductRequest productRequest);
+
+    Task DeleteProduct(int id);
 }

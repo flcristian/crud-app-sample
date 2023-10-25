@@ -45,4 +45,32 @@ public class ProductController : ProductApiController
             return BadRequest(badRequest.Message);
         }
     }
+
+    public override async Task<ActionResult<Product>> UpdateProduct(int id, UpdateProductRequest productRequest)
+    {
+        try
+        {
+            var product = await _productCommandService.UpdateProduct(id, productRequest);
+
+            return Ok(product);
+        }
+        catch (BadRequest badRequest)
+        {
+            return BadRequest(badRequest.Message);
+        }
+    }
+
+    public override async Task<IActionResult> DeleteProduct(int id)
+    {
+        try
+        {
+            await _productCommandService.DeleteProduct(id);
+
+            return Ok("Product deleted successfully.");
+        }
+        catch (BadRequest badRequest)
+        {
+            return BadRequest(badRequest.Message);
+        }
+    }
 }

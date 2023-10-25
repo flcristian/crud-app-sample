@@ -33,4 +33,30 @@ public class ProductRepository:IProductRepository
         await _context.SaveChangesAsync();
         return product;
     }
+
+    public async Task<Product> GetByIdAsync(int id)
+    {
+        return await _context.Products.FindAsync(id);
+    }
+    
+    public async Task<Product> UpdateAsync(int id, UpdateProductRequest productRequest)
+    {
+        var product = await _context.Products.FindAsync(id);
+
+        product.Price = productRequest.Price ?? product.Price;
+        product.Name = productRequest.Name ?? product.Name;
+        product.Category = productRequest.Category ?? product.Category;
+        product.DateOfFabrication = productRequest.DateOfFabrication ?? product.DateOfFabrication;
+        _context.Products.Update(product);
+        await _context.SaveChangesAsync();
+        return product;
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        var product = await _context.Products.FindAsync(id);
+
+        _context.Products.Remove(product);
+        await _context.SaveChangesAsync();
+    }
 }
