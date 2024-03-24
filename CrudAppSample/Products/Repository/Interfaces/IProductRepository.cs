@@ -9,6 +9,6 @@ public interface IProductRepository
     Task<Product> GetByNameAsync(string name);
     Task<Product> GetByIdAsync(int id);
     Task<Product> CreateAsync(CreateProductRequest productRequest);
-    Task<Product> UpdateAsync(int id, UpdateProductRequest productRequest);
+    Task<Product> UpdateAsync(UpdateProductRequest productRequest);
     Task DeleteAsync(int id);
 }

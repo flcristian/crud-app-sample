@@ -1,8 +1,7 @@
-using System.Runtime.InteropServices.JavaScript;
 using CrudAppSample.Products.Dto;
 using CrudAppSample.Products.Model;
 using Microsoft.AspNetCore.Mvc;
-
+    
 namespace CrudAppSample.Products.Controller.Interfaces;
 
 [ApiController]
@@ -10,6 +9,8 @@ namespace CrudAppSample.Products.Controller.Interfaces;
 public abstract class ProductApiController:ControllerBase
 {
     [HttpGet("all")]
+    [ProducesResponseType(statusCode:200,type:typeof(Product))]
+    [ProducesResponseType(statusCode:404,type:typeof(String))]
     public abstract Task<ActionResult<IEnumerable<Product>>> GetProducts();
 
     [HttpPost("create")]
@@ -20,10 +21,11 @@ public abstract class ProductApiController:ControllerBase
     [HttpPut("update")]
     [ProducesResponseType(statusCode:200,type:typeof(Product))]
     [ProducesResponseType(statusCode:400,type:typeof(String))]
-    public abstract Task<ActionResult<Product>> UpdateProduct([FromQuery]int id, [FromBody]UpdateProductRequest productRequest);
+    [ProducesResponseType(statusCode:404,type:typeof(String))]
+    public abstract Task<ActionResult<Product>> UpdateProduct([FromBody]UpdateProductRequest productRequest);
     
     [HttpDelete("delete/{id}")]
-    [ProducesResponseType(statusCode:200,type:typeof(String))]
-    [ProducesResponseType(statusCode:400,type:typeof(String))]
-    public abstract Task<IActionResult> DeleteProduct([FromRoute]int id);
+    [ProducesResponseType(statusCode:200,type:typeof(Product))]
+    [ProducesResponseType(statusCode:404,type:typeof(String))]
+    public abstract Task<ActionResult<Product>> DeleteProduct([FromRoute]int id);
 }

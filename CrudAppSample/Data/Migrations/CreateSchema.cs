@@ -14,13 +14,10 @@ public class CreateSchema:Migration
             .WithColumn("name").AsString(128).NotNullable()
             .WithColumn("category").AsString(128).NotNullable()
             .WithColumn("date_of_fabrication").AsDateTime().NotNullable();
-        
-
     }
 
     public override void Down()
     {
-        
         
     }
 }

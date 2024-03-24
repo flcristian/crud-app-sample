@@ -1,8 +1,8 @@
 using CrudAppSample.Products.Controller.Interfaces;
 using CrudAppSample.Products.Dto;
-using CrudAppSample.Products.Exceptions;
 using CrudAppSample.Products.Model;
 using CrudAppSample.Products.Service.Interfaces;
+using CrudAppSample.System.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrudAppSample.Products.Controller;
@@ -26,9 +26,9 @@ public class ProductController : ProductApiController
 
             return Ok(products);
         }
-        catch (BadRequest badRequest)
+        catch (ItemsDoNotExist ex)
         {
-            return BadRequest(badRequest.Message);
+            return NotFound(ex.Message);
         }
     }
 
@@ -40,37 +40,41 @@ public class ProductController : ProductApiController
 
             return Ok(product);
         }
-        catch (BadRequest badRequest)
+        catch (InvalidPrice ex)
         {
-            return BadRequest(badRequest.Message);
+            return BadRequest(ex.Message);
         }
     }
 
-    public override async Task<ActionResult<Product>> UpdateProduct(int id, UpdateProductRequest productRequest)
+    public override async Task<ActionResult<Product>> UpdateProduct(UpdateProductRequest productRequest)
     {
         try
         {
-            var product = await _productCommandService.UpdateProduct(id, productRequest);
+            var product = await _productCommandService.UpdateProduct(productRequest);
 
             return Ok(product);
         }
-        catch (BadRequest badRequest)
+        catch (InvalidPrice ex)
         {
-            return BadRequest(badRequest.Message);
+            return BadRequest(ex.Message);
+        }
+        catch (ItemDoesNotExist ex)
+        {
+            return NotFound(ex.Message);
         }
     }
-
-    public override async Task<IActionResult> DeleteProduct(int id)
+    
+    public override async Task<ActionResult<Product>> DeleteProduct(int id)
     {
         try
         {
-            await _productCommandService.DeleteProduct(id);
+            Product product = await _productCommandService.DeleteProduct(id);
 
-            return Ok("Product deleted successfully.");
+            return Ok(product);
         }
-        catch (BadRequest badRequest)
+        catch (ItemDoesNotExist ex)
         {
-            return BadRequest(badRequest.Message);
+            return NotFound(ex.Message);
         }
     }
 }

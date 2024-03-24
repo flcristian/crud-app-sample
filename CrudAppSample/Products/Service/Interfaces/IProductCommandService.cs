@@ -7,7 +7,7 @@ public interface IProductCommandService
 {
     Task<Product> CreateProduct(CreateProductRequest productRequest);
 
-    Task<Product> UpdateProduct(int id, UpdateProductRequest productRequest);
+    Task<Product> UpdateProduct(UpdateProductRequest productRequest);
 
-    Task DeleteProduct(int id);
+    Task<Product> DeleteProduct(int id);
 }

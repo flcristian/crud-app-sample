@@ -7,19 +7,21 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("product-api", domain => domain.WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+    );
+}); 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("Default")!,
         new MySqlServerVersion(new Version(8, 0, 21))));
-
 
 builder.Services.AddFluentMigratorCore()
     .ConfigureRunner(rb => rb
@@ -28,17 +30,13 @@ builder.Services.AddFluentMigratorCore()
         .ScanIn(typeof(Program).Assembly).For.Migrations())
     .AddLogging(lb => lb.AddFluentMigratorConsole());
 
-
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
 
 builder.Services.AddScoped<IProductQueryService, ProductQueryService>();
 
 builder.Services.AddScoped<IProductCommandService, ProductCommandService>();
 
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -60,4 +58,6 @@ using (var scope = app.Services.CreateScope())
     runner.MigrateUp();
 }
 
+
+app.UseCors("product-api");
 app.Run();
