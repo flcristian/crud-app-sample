@@ -1,6 +1,7 @@
 ﻿using CrudAppSample.Products.Model;
 using CrudAppSample.Products.Repository;
 using CrudAppSample.Products.Service;
+using CrudAppSample.Products.Service.Interfaces;
 using CrudAppSample.System.Constants;
 using CrudAppSample.System.Exceptions;
 using Moq;
@@ -11,7 +12,7 @@ namespace tests.Products;
 public class ProductQueryServiceTests
 {
     private readonly Mock<IProductRepository> _mockRepo;
-    private readonly ProductQueryService _service;
+    private readonly IProductQueryService _service;
 
     public ProductQueryServiceTests()
     {
@@ -168,8 +169,7 @@ public class ProductQueryServiceTests
     [Fact]
     public async Task GetProductById_ProductNotFound_ThrowItemDoesNotExistException()
     {
-        Product product = null!;
-        _mockRepo.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(product);
+        _mockRepo.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync((Product)null);
         
         var exception = await Assert.ThrowsAsync<ItemDoesNotExist>(() => _service.GetProductById(1));
         
