@@ -27,6 +27,45 @@ public class ProductQueryService:IProductQueryService
         return products;
     }
 
+    public async Task<IEnumerable<Product>> GetProductsWithCategory(string category)
+    {
+        IEnumerable<Product> products = (await _repository.GetAllAsync())
+            .Where(product => product.Category.Equals(category));
+        
+        if (products.Count() == 0)
+        {
+            throw new ItemsDoNotExist(Constants.NO_PRODUCTS_EXIST);
+        }
+
+        return products;
+    }
+
+    public async Task<IEnumerable<Product>> GetProductsWithNoCategory()
+    {
+        IEnumerable<Product> products = (await _repository.GetAllAsync())
+            .Where(product => product.Category == null!);
+
+        if (products.Count() == 0)
+        {
+            throw new ItemsDoNotExist(Constants.NO_PRODUCTS_EXIST);
+        }
+
+        return products;
+    }
+
+    public async Task<IEnumerable<Product>> GetProductsInPriceRange(double min, double max)
+    {
+        IEnumerable<Product> products = (await _repository.GetAllAsync())
+            .Where(product => product.Price >= min && product.Price <= max);
+        
+        if (products.Count() == 0)
+        {
+            throw new ItemsDoNotExist(Constants.NO_PRODUCTS_EXIST);
+        }
+
+        return products;
+    }
+    
     public async Task<Product> GetProductById(int id)
     {
         Product product = await _repository.GetByIdAsync(id);
