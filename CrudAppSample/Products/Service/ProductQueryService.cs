@@ -26,4 +26,16 @@ public class ProductQueryService:IProductQueryService
 
         return products;
     }
+
+    public async Task<Product> GetProductById(int id)
+    {
+        Product product = await _repository.GetByIdAsync(id);
+
+        if (product == null)
+        {
+            throw new ItemDoesNotExist(Constants.PRODUCT_DOES_NOT_EXIST);
+        }
+
+        return product;
+    }
 }
