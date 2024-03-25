@@ -41,7 +41,7 @@ public class ProductRepository:IProductRepository
     
     public async Task<Product> UpdateAsync(UpdateProductRequest productRequest)
     {
-        var product = await _context.Products.FindAsync(productRequest.Id);
+        var product = (await _context.Products.FindAsync(productRequest.Id))!;
 
         product.Price = productRequest.Price ?? product.Price;
         product.Name = productRequest.Name ?? product.Name;
