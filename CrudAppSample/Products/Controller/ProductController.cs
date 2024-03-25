@@ -44,6 +44,10 @@ public class ProductController : ProductApiController
         {
             return BadRequest(ex.Message);
         }
+        catch (ItemAlreadyExists ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     public override async Task<ActionResult<Product>> UpdateProduct(UpdateProductRequest productRequest)

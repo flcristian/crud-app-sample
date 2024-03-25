@@ -167,7 +167,7 @@ public class ProductCommandServiceTests
         Assert.Equal(expectedProduct, result, new ProductEqualityComparer());
     }
     
-        [Fact]
+    [Fact]
     public async Task DeleteProduct_ProductDoesNotExist_ThrowsItemDoesNotExistException()
     {
         _mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((Product)null!);
