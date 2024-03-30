@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text;
+using CrudAppSample.Products.Dto;
 using CrudAppSample.Products.Model;
 using Newtonsoft.Json;
 using tests.Infrastructure;
@@ -18,15 +19,12 @@ public class ProductIntegrationTests : IClassFixture<ApiWebApplicationFactory>
     [Fact]
     public async Task Post_Product_ReturnsSuccessStatusCode()
     {
-           
-        var request = "/api/products";
-        var product = new Product { Name = "New Product", Price = 9.99 };
+        var request = "/api/v1/product/create";
+        var product = new CreateProductRequest { Name = "dsja Product", Price = 9.99, Category = "Category", DateOfFabrication = DateTime.Now };
         var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
-
-           
+        
         var response = await _client.PostAsync(request, content);
-
-           
+        
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     }
 }

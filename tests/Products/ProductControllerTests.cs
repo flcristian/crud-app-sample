@@ -116,7 +116,7 @@ public class ProductControllerTests
 
         var result = await _controller.CreateProduct(createRequest);
 
-        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var okResult = Assert.IsType<CreatedResult>(result.Result);
         Assert.Equal(product, okResult.Value as Product, new ProductEqualityComparer()!);
         Assert.Equal(200, okResult.StatusCode);
     }
@@ -189,7 +189,7 @@ public class ProductControllerTests
 
         var result = await _controller.UpdateProduct(updateRequest);
 
-        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var okResult = Assert.IsType<AcceptedResult>(result.Result);
         Assert.Equal(product, okResult.Value as Product, new ProductEqualityComparer()!);
         Assert.Equal(200, okResult.StatusCode);
     }
@@ -217,7 +217,7 @@ public class ProductControllerTests
 
         var result = await _controller.DeleteProduct(1);
 
-        var notFoundResult = Assert.IsType<OkObjectResult>(result.Result);
+        var notFoundResult = Assert.IsType<AcceptedResult>(result.Result);
         Assert.Equal(product, notFoundResult.Value as Product, new ProductEqualityComparer()!);
         Assert.Equal(200, notFoundResult.StatusCode);
     }

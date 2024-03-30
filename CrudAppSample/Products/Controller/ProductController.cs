@@ -38,7 +38,7 @@ public class ProductController : ProductApiController
         {
             var product = await _productCommandService.CreateProduct(productRequest);
 
-            return Ok(product);
+            return Created("",product);
         }
         catch (InvalidPrice ex)
         {
@@ -56,7 +56,7 @@ public class ProductController : ProductApiController
         {
             var product = await _productCommandService.UpdateProduct(productRequest);
 
-            return Ok(product);
+            return Accepted("",product);
         }
         catch (InvalidPrice ex)
         {
@@ -74,7 +74,7 @@ public class ProductController : ProductApiController
         {
             Product product = await _productCommandService.DeleteProduct(id);
 
-            return Ok(product);
+            return Accepted("",product);
         }
         catch (ItemDoesNotExist ex)
         {

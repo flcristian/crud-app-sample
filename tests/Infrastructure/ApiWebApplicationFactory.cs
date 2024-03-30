@@ -1,9 +1,9 @@
 ﻿using CrudAppSample.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace tests.Infrastructure;
 
@@ -13,25 +13,21 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
-           
-            var descriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
-            if (descriptor != null)
-            {
-                services.Remove(descriptor);
-            }
+            var serviceProvider = new ServiceCollection()
+                .AddEntityFrameworkInMemoryDatabase()
+                .BuildServiceProvider();
+
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseInMemoryDatabase("InMemoryDbForIntegrationTesting");
+                options.UseInMemoryDatabase("InMemoryAppDb");
+                options.UseInternalServiceProvider(serviceProvider);
             });
 
-            
-            var sp = services.BuildServiceProvider();
-
-            using (var scope = sp.CreateScope())
+            using (var scope = services.BuildServiceProvider().CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<AppDbContext>();
+
                 db.Database.EnsureCreated();
             }
         });
