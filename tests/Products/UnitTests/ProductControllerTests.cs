@@ -118,7 +118,7 @@ public class ProductControllerTests
 
         var okResult = Assert.IsType<CreatedResult>(result.Result);
         Assert.Equal(product, okResult.Value as Product, new ProductEqualityComparer()!);
-        Assert.Equal(200, okResult.StatusCode);
+        Assert.Equal(201, okResult.StatusCode);
     }
 
     [Fact]
@@ -191,7 +191,7 @@ public class ProductControllerTests
 
         var okResult = Assert.IsType<AcceptedResult>(result.Result);
         Assert.Equal(product, okResult.Value as Product, new ProductEqualityComparer()!);
-        Assert.Equal(200, okResult.StatusCode);
+        Assert.Equal(202, okResult.StatusCode);
     }
 
     [Fact]
@@ -219,6 +219,6 @@ public class ProductControllerTests
 
         var notFoundResult = Assert.IsType<AcceptedResult>(result.Result);
         Assert.Equal(product, notFoundResult.Value as Product, new ProductEqualityComparer()!);
-        Assert.Equal(200, notFoundResult.StatusCode);
+        Assert.Equal(202, notFoundResult.StatusCode);
     }
 }
