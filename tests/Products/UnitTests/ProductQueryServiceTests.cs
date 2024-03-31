@@ -7,7 +7,7 @@ using CrudAppSample.System.Exceptions;
 using Moq;
 using tests.Products.Helpers;
 
-namespace tests.Products;
+namespace tests.Products.UnitTests;
 
 public class ProductQueryServiceTests
 {

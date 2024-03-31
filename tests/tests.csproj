@@ -8,6 +8,7 @@
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
         <PreserveCompilationContext>true</PreserveCompilationContext>
+        <UserSecretsId>278c9bc6-3e2b-460c-82d8-a027d9720cde</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
