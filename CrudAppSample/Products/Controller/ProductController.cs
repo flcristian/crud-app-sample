@@ -3,10 +3,11 @@ using CrudAppSample.Products.Dto;
 using CrudAppSample.Products.Model;
 using CrudAppSample.Products.Service.Interfaces;
 using CrudAppSample.System.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrudAppSample.Products.Controller;
-
+[Authorize]
 public class ProductController : ProductApiController
 {
     private IProductQueryService _productQueryService;
